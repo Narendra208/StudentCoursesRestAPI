@@ -1,0 +1,25 @@
+pipeline {
+    agent {
+        label "DOCKER"
+    }
+    stages {
+        stage( "vcs") {
+            steps {
+                url: https:https://github.com/Narendra208/StudentCoursesRestAPI.git
+                branch: 'master'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'docker image build -t narendra208/spc:latest .'
+            }
+        }
+        stage('scan and push') {
+            steps {
+                sh 'echo docker scan narendra208/spc:latest'
+                sh 'docker image push narendra208/spc:latest'
+                
+            }
+        }
+    }
+}
